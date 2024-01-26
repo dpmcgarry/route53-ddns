@@ -1,0 +1,8 @@
+logdir: /var/log/
+aws:
+  profile: yourawsprofilename
+  hostedzoneid: yourhostedzoneid
+records:
+  - www.example.com
+  - foo.example.com
+ttl: 300
