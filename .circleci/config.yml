@@ -38,13 +38,13 @@ jobs:
           name: Create the ~/build/amd64 directory if it doesn't exist
           command: mkdir -p ~/build/amd64
       - run:
-          name: Build arm64 executable
+          name: Build amd64 executable
           command: GOOS=linux GOARCH=amd64 go build -o ~/build/amd64 ./...
       - run:
           name: Create the ~/build/arm64 directory if it doesn't exist
           command: mkdir -p ~/build/arm64
       - run:
-          name: Build amd64 executable
+          name: Build arm64 executable
           command: GOOS=linux GOARCH=arm64 go build -o ~/build/arm64 ./...
       - run:
           name: List Build Output
@@ -68,7 +68,7 @@ jobs:
       - run:
           name: Build arm64 deb package
           command: |
-            sed -e "s/%VER%/$${PACKAGE_BASE_VERSION}${CIRCLE_BUILD_NUM}/g" ~/project/deb/control.arm64 | tee ~/project/deb/route53-ddns/DEBIAN/control
+            sed -e "s/%VER%/${PACKAGE_BASE_VERSION}${CIRCLE_BUILD_NUM}/g" ~/project/deb/control.arm64 | tee ~/project/deb/route53-ddns/DEBIAN/control
             cat ~/project/deb/route53-ddns/DEBIAN/control
             cp ~/build/arm64/route53-ddns ~/project/deb/route53-ddns/usr/local/bin/route53-ddns
             cd ~/project/deb
