@@ -58,20 +58,20 @@ jobs:
       - run:
           name: Build amd64 deb package
           command: |
-            sed -e "s/%VER%/${PACKAGE_BASE_VERSION}${CIRCLE_BUILD_NUM}/g" ~/deb/control.amd64 | tee ~/deb/route53-ddns/DEBIAN/control
-            cat ~/deb/route53-ddns/DEBIAN/control
-            cp ~/build/amd64/route53-ddns ~/deb/route53-ddns/usr/local/bin/route53-ddns
-            cd ~/deb
+            sed -e "s/%VER%/${PACKAGE_BASE_VERSION}${CIRCLE_BUILD_NUM}/g" ~/project/deb/control.amd64 | tee ~/project/deb/route53-ddns/DEBIAN/control
+            cat ~/project/deb/route53-ddns/DEBIAN/control
+            cp ~/build/amd64/route53-ddns ~/project/deb/route53-ddns/usr/local/bin/route53-ddns
+            cd ~/project/deb
             dpkg-deb --build route53-ddns
             ls
             cp route53-ddns.deb ~/artifacts/route53-ddns_${PACKAGE_BASE_VERSION}${CIRCLE_BUILD_NUM}_amd64.deb
       - run:
           name: Build arm64 deb package
           command: |
-            sed -e "s/%VER%/$${PACKAGE_BASE_VERSION}${CIRCLE_BUILD_NUM}/g" ~/deb/control.arm64 | tee ~/deb/route53-ddns/DEBIAN/control
-            cat ~/deb/route53-ddns/DEBIAN/control
-            cp ~/build/arm64/route53-ddns ~/deb/route53-ddns/usr/local/bin/route53-ddns
-            cd ~/deb
+            sed -e "s/%VER%/$${PACKAGE_BASE_VERSION}${CIRCLE_BUILD_NUM}/g" ~/project/deb/control.arm64 | tee ~/project/deb/route53-ddns/DEBIAN/control
+            cat ~/project/deb/route53-ddns/DEBIAN/control
+            cp ~/build/arm64/route53-ddns ~/project/deb/route53-ddns/usr/local/bin/route53-ddns
+            cd ~/project/deb
             dpkg-deb --build route53-ddns
             ls
             cp route53-ddns.deb ~/artifacts/route53-ddns_${PACKAGE_BASE_VERSION}${CIRCLE_BUILD_NUM}_arm64.deb
