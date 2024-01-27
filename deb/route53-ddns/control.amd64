@@ -1,5 +1,5 @@
 Package: route53-ddns
-Version: 1.0.%SUB%
+Version: %VER%
 Maintainer: Don McGarry
 Architecture: amd64
 Description: Basic DDNS Client for Route53
