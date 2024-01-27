@@ -11,6 +11,9 @@ jobs:
     resource_class: dizon/onprem
     steps:
       - checkout
+      - run:
+          name: List Home
+          command: ls -l -R ~
       - aws-cli/setup:
           profile_name: default
           region: ${AWS_REGION}
@@ -52,8 +55,8 @@ jobs:
       - run:
           name: Build amd64 deb package
           command: |
-            sed -e "s/%VER%/${PACKAGE_VERSION}/g" ./deb/control.amd64 > ./deb/route53-ddns/DEBIAN/control
-            cat ./deb/route53-ddns/DEBIAN/control
+            sed -e "s/%VER%/${PACKAGE_VERSION}/g" ~/deb/control.amd64 > ~/deb/route53-ddns/DEBIAN/control
+            cat ~/deb/route53-ddns/DEBIAN/control
             cp ~/build/amd64/route53-ddns ~/deb/route53-ddns/usr/local/bin/route53-ddns
             cd ~/deb
             dpkg-deb --build route53-ddns
@@ -62,8 +65,8 @@ jobs:
       - run:
           name: Build arm64 deb package
           command: |
-            sed -e "s/%VER%/${PACKAGE_VERSION}/g" ./deb/control.arm64 > ./deb/route53-ddns/DEBIAN/control
-            cat ./deb/route53-ddns/DEBIAN/control
+            sed -e "s/%VER%/${PACKAGE_VERSION}/g" ~/deb/control.arm64 > ~/deb/route53-ddns/DEBIAN/control
+            cat ~/deb/route53-ddns/DEBIAN/control
             cp ~/build/arm64/route53-ddns ~/deb/route53-ddns/usr/local/bin/route53-ddns
             cd ~/deb
             dpkg-deb --build route53-ddns
