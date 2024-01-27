@@ -22,3 +22,4 @@ go.work
 /route53-ddns.yaml
 /route53-ddns
 /route53-ddns.log
+control
