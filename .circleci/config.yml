@@ -78,9 +78,9 @@ jobs:
       - run:
           name: List Artifacts
           command: ls -l -R ~/artifacts
-      - store_artifacts:
-          path: ~/artifacts
-          destination: executables
+      - run:
+          Name: Upload Artifacts to S3
+          command: aws s3 cp ~/artifacts/ s3://${ARTIFACT_BUCKET}/deb/ --recursive
       
 workflows:
   build-and-test:
