@@ -53,6 +53,9 @@ jobs:
           name: Create the ~/artifacts directory if it doesn't exist
           command: mkdir -p ~/artifacts
       - run:
+          name: Print Package Version
+          command: echo ${PACKAGE_VERSION}
+      - run:
           name: Build amd64 deb package
           command: |
             sed -e "s/%VER%/${PACKAGE_VERSION}/g" ~/deb/control.amd64 > ~/deb/route53-ddns/DEBIAN/control
