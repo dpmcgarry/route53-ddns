@@ -2,7 +2,9 @@ version: 2.1
 orbs:
   aws-cli: circleci/aws-cli@4.1.2
 jobs:
-  build-go-executables:
+  build:
+    context:
+      - aws-constants
     environment:
       AWS_REGION: us-east-1
       PACKAGE_BASE_VERSION: 1.0.
@@ -81,8 +83,19 @@ jobs:
       - run:
           Name: Upload Artifacts to S3
           command: aws s3 cp ~/artifacts/ s3://${ARTIFACT_BUCKET}/deb/ --recursive
-      
+  deploy:
+    docker:
+      - image: cimg/base:latest
+    resource_class: dizon/onprem
+    steps:
+      - run:
+          name: Update APT via SSH
+          command: ssh $SSH_USER@$SSH_HOST "sudo /opt/repo-sync.sh"
+
 workflows:
-  build-and-test:
+  build-and-deploy:
     jobs:
-      - build-go-executables
+      - build
+      - deploy:
+          requires:
+            - build
