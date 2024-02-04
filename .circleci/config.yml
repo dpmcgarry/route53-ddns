@@ -89,6 +89,8 @@ jobs:
       - run:
           name: Update APT via SSH
           command: |
+            mkdir -p .ssh
+            touch .ssh/known_hosts
             ssh-keyscan -H $SSH_HOST >> ~/.ssh/known_hosts
             ssh $SSH_USER@$SSH_HOST "sudo /opt/repo-sync.sh"
 
