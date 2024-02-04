@@ -88,7 +88,9 @@ jobs:
     steps:
       - run:
           name: Update APT via SSH
-          command: ssh $SSH_USER@$SSH_HOST "sudo /opt/repo-sync.sh"
+          command: |
+            ssh-keyscan -H $SSH_HOST >> ~/.ssh/known_hosts
+            ssh $SSH_USER@$SSH_HOST "sudo /opt/repo-sync.sh"
 
 workflows:
   build-and-deploy:
